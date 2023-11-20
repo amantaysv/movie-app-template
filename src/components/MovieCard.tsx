@@ -22,4 +22,6 @@ export const MovieCard = ({ nameRu, posterUrlPreview }: IMovie) => {
 
 const SImg = styled('img')({
   maxWidth: '100%',
+  aspectRatio: '2/3',
+  objectFit: 'cover',
 })

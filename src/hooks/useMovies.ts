@@ -3,8 +3,14 @@ import { IMovie } from '../interface/IMovie'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
+interface Movies {
+  items: IMovie[]
+  total: number
+  totalPages: number
+}
+
 export const useMovies = (params: string) => {
-  const [movies, setMovies] = useState<null | IMovie[]>(null)
+  const [movies, setMovies] = useState<null | Movies>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -20,7 +26,7 @@ export const useMovies = (params: string) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        setMovies(data.items)
+        setMovies(data)
       })
       .catch((err) => {
         console.log(err)
@@ -34,7 +40,7 @@ export const useMovies = (params: string) => {
   useEffect(() => {
     getMovies()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [JSON.stringify(params)])
 
   return {
     movies,
